@@ -8,6 +8,7 @@ import com.example.iems.model.User;
 import com.example.iems.service.JwtService;
 import com.example.iems.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -47,6 +48,12 @@ public class UserController {
     @PostMapping("/admin/updateUser")
     public User updateUser(String username , @RequestBody UpdateUserRequest request) {
         return service.updateUser(username,request);
+    }
+
+    @DeleteMapping("/admin/deleteUser")
+    public ResponseEntity<String> deleteUser(String username) {
+        service.deleteUser(username);
+        return ResponseEntity.ok( "User has deleted from database");
     }
 
     @PostMapping("/generateToken")
