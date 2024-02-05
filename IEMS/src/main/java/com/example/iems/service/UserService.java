@@ -78,6 +78,19 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public void deleteUser(String username){
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+
+        if (optionalUser.isPresent()){
+            User existingUser = optionalUser.get();
+            userRepository.delete(existingUser);
+            ResponseEntity.ok(userRepository.findAuthoritiesByUsername(username) + " has deleted from database");
+
+        }else {
+            ResponseEntity.ok(userRepository.findAuthoritiesByUsername(username) + " has not found in database");
+
+        }
+    }
 
     public List<User> getUserByCity(String city){
         return userRepository.findUsersByCity(city);
