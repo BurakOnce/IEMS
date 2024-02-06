@@ -2,9 +2,11 @@ package com.example.iems.service;
 
 import com.example.iems.dto.CreateUserRequest;
 import com.example.iems.dto.UpdateUserRequest;
+import com.example.iems.model.Role;
 import com.example.iems.model.User;
 import com.example.iems.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -94,6 +96,18 @@ public class UserService implements UserDetailsService {
 
     public List<User> getUserByCity(String city){
         return userRepository.findUsersByCity(city);
+    }
+
+    public List<User> getUserByRole(Role role) {
+            return userRepository.findUserByRole(role);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findUsersByUsername(username);
+    }
+
+    public List<User> getAllUser(){
+        return userRepository.findAll();
     }
 
 
