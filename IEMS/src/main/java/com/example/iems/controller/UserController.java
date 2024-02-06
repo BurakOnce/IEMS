@@ -4,6 +4,7 @@ package com.example.iems.controller;
 import com.example.iems.dto.AuthRequest;
 import com.example.iems.dto.CreateUserRequest;
 import com.example.iems.dto.UpdateUserRequest;
+import com.example.iems.model.Role;
 import com.example.iems.model.User;
 import com.example.iems.service.JwtService;
 import com.example.iems.service.UserService;
@@ -81,8 +82,17 @@ public class UserController {
         return "This is MANAGER!";
     }
 
-    @GetMapping("/admin/getUserByCity")
+    @GetMapping("/admin/getUser/city")
     public List<User> getUserByCity(String city) {return service.getUserByCity(city);}
+
+    @GetMapping("/admin/getUser/role")
+    public List<User> getUserByRole(Role role) {return service.getUserByRole(role);}
+
+    @GetMapping("/admin/getUser/username")
+    public User getUserByUsername(String username){return service.getUserByUsername(username);}
+
+    @GetMapping("/admin/getUser/all")
+    public List<User> getAllUser(){return service.getAllUser();}
 
 
 }
