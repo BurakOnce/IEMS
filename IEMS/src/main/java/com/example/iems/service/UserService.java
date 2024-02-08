@@ -79,6 +79,7 @@ public class UserService implements UserDetailsService {
             throw new EntityNotFoundException("User not found with username: " + username);
         }
     }
+    
 
     public void deleteUser(String username){
         Optional<User> optionalUser = userRepository.findByUsername(username);
@@ -98,6 +99,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findUsersByCity(city);
     }
 
+    public List<User> getUserByTown(String town){
+        return userRepository.findUsersByTown(town);
+    }
+
     public List<User> getUserByRole(Role role) {
             return userRepository.findUserByRole(role);
     }
@@ -110,8 +115,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-
-
+    public Long countUsers(Role role){return (long) userRepository.findUserByRole(role).size();
+    }
 
 
 
