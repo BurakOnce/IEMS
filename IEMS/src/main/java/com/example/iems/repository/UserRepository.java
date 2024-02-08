@@ -25,4 +25,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findUsersByCity(String city);
 
+    List<User> findUsersByTown(String town);
+
 }
