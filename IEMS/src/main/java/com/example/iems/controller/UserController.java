@@ -85,6 +85,9 @@ public class UserController {
     @GetMapping("/admin/getUser/city")
     public List<User> getUserByCity(String city) {return service.getUserByCity(city);}
 
+    @GetMapping("/admin/getUser/town")
+    public List<User> getUserByTown(String town) {return service.getUserByTown(town);}
+
     @GetMapping("/admin/getUser/role")
     public List<User> getUserByRole(Role role) {return service.getUserByRole(role);}
 
@@ -93,6 +96,9 @@ public class UserController {
 
     @GetMapping("/admin/getUser/all")
     public List<User> getAllUser(){return service.getAllUser();}
+
+    @GetMapping("/admin/getUser/count")
+    public Long countUser(Role role){return service.countUsers(role);}
 
 
 }
