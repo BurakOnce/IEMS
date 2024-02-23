@@ -23,13 +23,13 @@ public class Company {
     private String town;
     private String city;
 
-    @OneToOne
-    private User manager;
+    private Long managerId;
+
+    @ElementCollection
+    @CollectionTable(name = "employee_id", joinColumns = @JoinColumn(name = "company_id"))
+    @Column(name = "employee_id")
+    private List<Long> employeeId;
 
     @OneToMany
-    private List<User> employee;
-
-
-    @OneToMany
-    private List<Product> product;
+    private List<Product> productId;
 }
