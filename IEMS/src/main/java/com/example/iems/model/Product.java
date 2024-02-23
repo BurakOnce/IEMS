@@ -27,7 +27,5 @@ public class Product {
     private Long discount;
     private int price;
 
-    @ManyToOne
-    private Category category;
 
 }
