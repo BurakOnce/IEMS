@@ -28,9 +28,9 @@ public class CompanyController {
     public Company createCompany(@RequestBody CreateCompanyRequest request) {
         return companyService.createCompany(request);
     }
-/*
-    @PostMapping("/admin/UpdateCompany")
+
+    @PostMapping("/admin/updateCompany")
     public Company updateCompany(String name , @RequestBody UpdateCompanyRequest request){
         return companyService.updateCompany(name,request);
-    }*/
+    }
 }
