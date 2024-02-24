@@ -37,7 +37,7 @@ public class CompanyService  {
         return companyRepository.save(newCompany);
     }
 
-/*
+
     public Company updateCompany(String name, UpdateCompanyRequest request) {
         Optional<Company> optionalCompany = companyRepository.findByName(name);
         if (optionalCompany.isPresent()) {
@@ -47,13 +47,14 @@ public class CompanyService  {
             existingCompany.setSector(request.getSector() != null ? request.getSector() : existingCompany.getSector());
             existingCompany.setTown(request.getTown() != null ? request.getTown() : existingCompany.getTown());
             existingCompany.setCity(request.getCity() != null ? request.getCity() : existingCompany.getCity());
-            existingCompany.setManager(request.getManager() != null ? request.getManager() : existingCompany.getManager());
-            existingCompany.setEmployee(request.getEmployee() != null ? request.getEmployee() : existingCompany.getEmployee());
-            existingCompany.setProduct(request.getProduct() != null ? request.getProduct() : existingCompany.getProduct());
+            existingCompany.setManagerId(request.getManagerId() != null ? request.getManagerId() : existingCompany.getManagerId());
+            existingCompany.setEmployeeId(request.getEmployeeId() != null ? request.getEmployeeId() : existingCompany.getEmployeeId());
+            existingCompany.setProductId(request.getProductId() != null ? request.getProductId() : existingCompany.getProductId());
 
             return companyRepository.save(existingCompany);
         } else {
             throw new EntityNotFoundException("Company not found : " + name);
         }
-    }*/
+    }
 }
+
