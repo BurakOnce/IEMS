@@ -33,4 +33,7 @@ public class CompanyController {
     public Company updateCompany(String name , @RequestBody UpdateCompanyRequest request){
         return companyService.updateCompany(name,request);
     }
+    
+    @GetMapping("/admin/getCompany/all")
+    public List<Company> getAllUser(){return companyService.getAllCompanies();}
 }
