@@ -56,5 +56,9 @@ public class CompanyService  {
             throw new EntityNotFoundException("Company not found : " + name);
         }
     }
+
+    public List<Company> getAllCompanies(){
+        return companyRepository.findAll();
+    }
 }
 
