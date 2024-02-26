@@ -2,6 +2,7 @@ package com.example.iems.dto;
 
 
 import com.example.iems.model.Product;
+import com.example.iems.model.User;
 import lombok.Builder;
 import java.util.List;
 
@@ -11,8 +12,8 @@ public record CreateCompanyRequest(
         String sector,
         String town,
         String city,
-        Long managerId,
-        List<Long> employeeId,
-        List<Product> productId) {
+        User manager,
+        List<User> employee,
+        List<Product> product) {
 
 }
