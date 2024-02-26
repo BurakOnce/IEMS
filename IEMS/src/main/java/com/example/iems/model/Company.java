@@ -1,4 +1,5 @@
 package com.example.iems.model;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 
 @Data
 @Entity
@@ -23,13 +23,14 @@ public class Company {
     private String town;
     private String city;
 
-    private Long managerId;
-
-    @ElementCollection
-    @CollectionTable(name = "employee_id", joinColumns = @JoinColumn(name = "company_id"))
-    @Column(name = "employee_id")
-    private List<Long> employeeId;
+    @OneToOne
+    private User manager;
 
     @OneToMany
-    private List<Product> productId;
+    private List<User> employee;
+
+    @OneToMany
+    private List<Product> product;
+
+
 }
