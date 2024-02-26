@@ -17,8 +17,8 @@ public class UpdateCompanyRequest {
     private String sector;
     private String town;
     private String city;
-    private Long managerId;
-    private List<Long> employeeId;
-    private List<Product> productId;
+    private User manager;
+    private List<User> employee;
+    private List<Product> product;
 }
 
