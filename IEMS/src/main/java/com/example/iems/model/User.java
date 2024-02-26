@@ -38,4 +38,7 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Role> authorities;
+
+    @ManyToOne
+    private Company company;
 }
