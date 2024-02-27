@@ -21,11 +21,15 @@ public class Product {
 
     @Column(unique = true, nullable = false)
     private String name;
+
     private String description;
     private Long stock;
+
+    @Column(unique = true, nullable = false)
     private String barcode;
+
     private Long discount;
-    private int price;
+    private Float price;
 
 
 }
