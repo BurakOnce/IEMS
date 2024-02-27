@@ -47,6 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers("/appUser/manager/**").hasRole("MANAGER")
                                     .requestMatchers("/appUser/admin/**").hasRole("ADMIN")
                           .requestMatchers("/appCompany/admin/**").hasRole("ADMIN")
+                          .requestMatchers("/appProduct/admin/**").hasRole("ADMIN")
 
 
                 )
