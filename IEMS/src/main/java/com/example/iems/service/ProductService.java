@@ -75,6 +75,12 @@ public class ProductService  {
         }
     }
 
+    public ResponseEntity<String> deleteAllProduct(){
+        productRepository.deleteAll();
+        return ResponseEntity.ok( "All Product's deleted successfully");
+
+    }
+
     public List<Product> sortByPriceDown(){
         return productRepository.findAll(Sort.by(Sort.Direction.ASC, "price"));
     }
