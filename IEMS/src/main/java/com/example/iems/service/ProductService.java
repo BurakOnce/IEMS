@@ -81,6 +81,10 @@ public class ProductService  {
 
     }
 
+    public List<Product> getAllProducts(){
+        return productRepository.findAll();
+    }
+
     public List<Product> sortByPriceDown(){
         return productRepository.findAll(Sort.by(Sort.Direction.ASC, "price"));
     }
