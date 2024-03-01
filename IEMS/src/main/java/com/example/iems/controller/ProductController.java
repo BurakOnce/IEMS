@@ -33,6 +33,11 @@ public class ProductController {
         return productService.deleteProduct(barcode);
     }
 
+    @DeleteMapping("/admin/deleteAllProduct")
+    public ResponseEntity<String> DeleteAllProduct(){
+        return productService.deleteAllProduct();
+    }
+
     @GetMapping("/admin/sortProduct/byPrice/down")
     public List<Product> SortProductByPriceDown(){
         return productService.sortByPriceDown();
