@@ -38,6 +38,11 @@ public class ProductController {
         return productService.deleteAllProduct();
     }
 
+    @GetMapping("/admin/getProduct/all")
+    public List<Product> getAllProducts(){
+        return productService.getAllProducts();
+    }
+
     @GetMapping("/admin/sortProduct/byPrice/down")
     public List<Product> SortProductByPriceDown(){
         return productService.sortByPriceDown();
