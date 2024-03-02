@@ -2,11 +2,13 @@ package com.example.iems.controller;
 
 import com.example.iems.dto.CreateProductRequest;
 import com.example.iems.dto.UpdateProductRequest;
+import com.example.iems.exceptions.SQLIntegrityConstraintViolationException;
 import com.example.iems.model.Product;
 import com.example.iems.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping("/admin/createProduct")
-    public ResponseEntity<String> CreateProduct(@RequestBody CreateProductRequest request){
+    public ResponseEntity<String> CreateProduct(@RequestBody CreateProductRequest request) throws SQLIntegrityConstraintViolationException {
         return productService.CreateProduct(request);
     }
 
