@@ -8,6 +8,7 @@ import com.example.iems.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ public class ProductService  {
     public ProductService(ProductRepository productRepository){
         this.productRepository=productRepository;
     }
+
 
     public ResponseEntity<String> CreateProduct(CreateProductRequest request)throws SQLIntegrityConstraintViolationException  {
 
