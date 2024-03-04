@@ -13,13 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/appUser")
 @Slf4j
 public class UserController {
 
@@ -42,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/addNewUser")
-    public User addUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<String> addUser(@RequestBody CreateUserRequest request) {
         return service.createUser(request);
     }
 
@@ -89,16 +91,16 @@ public class UserController {
     public List<User> getUserByTown(String town) {return service.getUserByTown(town);}
 
     @GetMapping("/admin/getUser/role")
-    public List<User> getUserByRole(Role role) {return service.getUserByRole(role);}
+    public Optional<User> getUserByRole(Role role) {return service.getUserByRole(role);}
 
     @GetMapping("/admin/getUser/username")
-    public User getUserByUsername(String username){return service.getUserByUsername(username);}
+    public UserDetails getUserByUsername(String username) {return service.getUserByUsername(username);}
 
     @GetMapping("/admin/getUser/all")
     public List<User> getAllUser(){return service.getAllUser();}
 
     @GetMapping("/admin/getUser/count")
-    public Long countUser(Role role){return service.countUsers(role);}
+    public Long countUser(){return service.countUsers();}
 
 
 }
