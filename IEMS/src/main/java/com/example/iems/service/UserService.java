@@ -30,18 +30,18 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findUsersByUsername(username);
         return user.orElseThrow(EntityNotFoundException::new);
     }
 
     public Optional<User> getByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findUsersByUsername(username);
     }
 
-    public User createUser(CreateUserRequest request) {
+    public ResponseEntity<String> createUser(CreateUserRequest request) {
         String username = request.username();
-        if (userRepository.findByUsername(username).isPresent()) {
-            return null;
+        if (userRepository.findUsersByUsername(username).isPresent()) {
+            return ResponseEntity.ok( "User already exist");
         }
 
         User newUser = User.builder()
@@ -58,11 +58,13 @@ public class UserService implements UserDetailsService {
                 .accountNonLocked(true)
                 .build();
 
-        return userRepository.save(newUser);
+            userRepository.save(newUser);
+        return ResponseEntity.ok( "User has successfully created");
+
     }
 
     public User updateUser(String username, UpdateUserRequest request) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        Optional<User> optionalUser = userRepository.findUsersByUsername(username);
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
 
@@ -79,10 +81,10 @@ public class UserService implements UserDetailsService {
             throw new EntityNotFoundException("User not found with username: " + username);
         }
     }
-    
+
 
     public void deleteUser(String username){
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        Optional<User> optionalUser = userRepository.findUsersByUsername(username);
 
         if (optionalUser.isPresent()){
             User existingUser = optionalUser.get();
@@ -103,21 +105,22 @@ public class UserService implements UserDetailsService {
         return userRepository.findUsersByTown(town);
     }
 
-    public List<User> getUserByRole(Role role) {
+    public Optional<User> getUserByRole(Role role) {
             return userRepository.findUserByRole(role);
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findUsersByUsername(username);
-    }
+    public UserDetails getUserByUsername(String username) {
+        return userRepository.findUsersByUsername(username).orElseThrow();}
+
 
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
 
-    public Long countUsers(Role role){return (long) userRepository.findUserByRole(role).size();
+    public Long countUsers(){return (long) userRepository.findAll().size();
     }
 
 
 
 }
+
