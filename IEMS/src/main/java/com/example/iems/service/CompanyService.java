@@ -3,10 +3,14 @@ package com.example.iems.service;
 import com.example.iems.dto.CreateCompanyRequest;
 import com.example.iems.dto.UpdateCompanyRequest;
 import com.example.iems.model.Company;
+import com.example.iems.model.Role;
+import com.example.iems.model.User;
 import com.example.iems.repository.CompanyRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,10 +22,10 @@ public class CompanyService  {
         this.companyRepository = companyRepository;
     }
 
-    public Company createCompany(CreateCompanyRequest request) {
+    public ResponseEntity<String> createCompany(CreateCompanyRequest request) {
         String name = request.name();
         if (companyRepository.findByName(name).isPresent()) {
-            return null;
+            return ResponseEntity.ok( "Company already exist");
         }
 
         Company newCompany = Company.builder()
@@ -29,12 +33,16 @@ public class CompanyService  {
                 .sector(request.sector())
                 .town(request.town())
                 .city(request.city())
-                .managerId(request.managerId())
-                .employeeId(request.employeeId())
-                .productId(request.productId())
+                .manager(request.manager())
+                .employee(request.employee())
+                .product(request.product())
                 .build();
 
-        return companyRepository.save(newCompany);
+        companyRepository.save(newCompany);
+
+
+        return ResponseEntity.ok( "Company has successfully created");
+
     }
 
 
@@ -47,9 +55,9 @@ public class CompanyService  {
             existingCompany.setSector(request.getSector() != null ? request.getSector() : existingCompany.getSector());
             existingCompany.setTown(request.getTown() != null ? request.getTown() : existingCompany.getTown());
             existingCompany.setCity(request.getCity() != null ? request.getCity() : existingCompany.getCity());
-            existingCompany.setManagerId(request.getManagerId() != null ? request.getManagerId() : existingCompany.getManagerId());
-            existingCompany.setEmployeeId(request.getEmployeeId() != null ? request.getEmployeeId() : existingCompany.getEmployeeId());
-            existingCompany.setProductId(request.getProductId() != null ? request.getProductId() : existingCompany.getProductId());
+            existingCompany.setManager(request.getManager() != null ? request.getManager() : existingCompany.getManager());
+            existingCompany.setEmployee(request.getEmployee() != null ? request.getEmployee() : existingCompany.getEmployee());
+            existingCompany.setProduct(request.getProduct() != null ? request.getProduct() : existingCompany.getProduct());
 
             return companyRepository.save(existingCompany);
         } else {
@@ -60,5 +68,33 @@ public class CompanyService  {
     public List<Company> getAllCompanies(){
         return companyRepository.findAll();
     }
+
+    public void deleteCompany(String name){
+        Optional<Company> optionalCompany = companyRepository.findByName(name);
+
+        if (optionalCompany.isPresent()){
+            Company existingCompany = optionalCompany.get();
+            companyRepository.delete(existingCompany);
+            ResponseEntity.ok(" Company deleted from database");
+
+        }else {
+            ResponseEntity.ok( "Company has not found in database");
+
+        }
+    }
+
+    public List<Company> getCompanyByCity(String city){
+        return companyRepository.findCompanyByCity(city);
+    }
+
+    public List<Company> getCompanyByTown(String town){
+        return companyRepository.findCompanyByTown(town);
+    }
+
+    public List<Company> getCompanyBySector(String sector) {
+        return companyRepository.findCompanyBySector(sector);
+    }
+
+    public Company getCompanyByName(String name) {return companyRepository.findByName(name).orElseThrow();}
 }
 
