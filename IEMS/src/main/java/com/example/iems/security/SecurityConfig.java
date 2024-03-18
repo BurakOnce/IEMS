@@ -34,21 +34,35 @@ public class SecurityConfig {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
+/*
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(x ->
+                        x.requestMatchers("/**").permitAll()
+                )
+                .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x ->
-                        x.requestMatchers("/appUser/welcome/**", "/appUser/generateToken/**","/appCompany/welcome/**").permitAll()
+                        x.requestMatchers( "/appUser/generateToken/**").permitAll()
                 )
                 .authorizeHttpRequests(x ->
-                        x.requestMatchers("/appUser/employee/**").hasRole("EMPLOYEE")
-                                .requestMatchers("/appUser/manager/**").hasRole("MANAGER")
-                                    .requestMatchers("/appUser/admin/**").hasRole("ADMIN")
-                          .requestMatchers("/appCompany/admin/**").hasRole("ADMIN")
-                          .requestMatchers("/appProduct/admin/**").hasRole("ADMIN")
-
+                        x
+                                .requestMatchers("/appUser/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/appCompany/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/appCompany/manager/**").hasRole("MANAGER")
+                                .requestMatchers("/appProduct/manager/**").hasRole("MANAGER")
+                                .requestMatchers("/appProduct/employee/**").hasRole("EMPLOYEE")
+                                .requestMatchers("/appProduct/manEmp/**").hasAnyRole("EMPLOYEE","MANAGER")
 
                 )
                 .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -56,6 +70,8 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
