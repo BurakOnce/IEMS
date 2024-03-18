@@ -69,20 +69,6 @@ public class UserController {
         throw new UsernameNotFoundException("invalid username {} " + request.username());
     }
 
-    @GetMapping("/employee/info")
-    public String getEmployeeString() {
-        return "This is EMPLOYEE!";
-    }
-
-    @GetMapping("/admin/info")
-    public String getAdminString() {
-        return "This is ADMIN!";
-    }
-
-    @GetMapping("/manager/info")
-    public String getManagerString() {
-        return "This is MANAGER!";
-    }
 
     @GetMapping("/admin/getUser/city")
     public List<User> getUserByCity(String city) {return service.getUserByCity(city);}
